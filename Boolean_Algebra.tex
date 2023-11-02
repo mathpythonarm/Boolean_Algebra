@@ -1,0 +1,725 @@
+\documentclass{article}
+\newcounter{example}
+\newenvironment{example}[1][]{\refstepcounter{example}\par\medskip
+\noindent\textbf{Example~\theexample. #1} \rmfamily}{\medskip}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{xcolor} % package crucial to implement colors  
+\usepackage{tikz} % package used for the tikz  
+\usepackage[]{geometry}
+\geometry{ a4paper, total={170mm,257mm}, left=20mm, top=20mm, }
+\usepackage{array, multirow, multicol}
+\setlength{\tabcolsep}{18pt} %Gap before text starts
+\renewcommand{\arraystretch}{1.5} %Cell %height scaling
+\usepackage{colortbl}
+\title{Boolean Algebra}
+\author{Armen Hayrapetian (UFAR)}
+
+\date{ }
+
+\begin{document}
+
+\maketitle
+
+\section{Boolean Function}
+Boolean algebra provides the operations and the rules for working with the set $\{0,1 \}$.
+\\ The three operations in Boolean algebra that we will use most are \textbf{complementation}, the \textbf{Boolean sum}, and the \textbf{Boolean product}.
+
+\begin{itemize}
+    \item The \textbf{complement} of an element, denoted with a bar, is defined by: $$\bar{0}=1, \bar{1}=0$$
+    \item The Boolean \textbf{sum}, denoted by "+" or by OR, has the following values: $$0+0=0  ,     1+0=1 ,         0+1=1   ,     1+1=1$$
+    \item The Boolean \textbf{product}, denoted by "$\cdot$" or by AND, has the following values: $$0\cdot0=0   ,   1\cdot0=0    ,        0\cdot1=0     ,        1\cdot1=1$$
+\end{itemize}
+
+\begin{example}
+    \textit{Translate logic propositional into an identity in Boolean Algebra.} 
+    \begin{enumerate}
+    \item $T \wedge \sim ( F \vee F ) \wedge T \vee F$
+        \item $T\wedge ( T\vee F) \vee \sim T  \wedge F$
+        \item $T \wedge (T \vee F) $
+        \item $\sim ( T \wedge F) $ 
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    \textit{By using translating logic propositional into an identity in Boolean Algebra, prove  De Morgan's laws in logic.}
+    $$\sim ( p \wedge q) \equiv \sim p \vee \sim q $$
+    $$\sim ( p \vee q) \equiv \sim p \wedge \sim q $$
+\end{example}
+\begin{example}
+    \textit{By translating logic propositional into Boolean Algebra, prove given law in logic.}
+    $$p \wedge ( p \vee q) \equiv p$$
+\end{example}
+\textbf{Definition} 
+\\ \textbf{Boolean Expressions and Boolean Functions}
+    \\Let $B=\{0,1\}$. Then $B_n= \{ (x_1, x_2, \cdots , x_n) | x_i \in B , 1 \leq i \leq n  \}$ is the set of all possible
+ $n$-tuples of $0$s and $1$s. The variable $x$ is called a Boolean variable if it assumes values only  from $B$, that is, if its only possible values are $0$ and $1$. A function from $B_n$ to $B$ is called a
+ Boolean function of degree $n$.
+
+
+\begin{example}
+    \textit{How many different Boolean functions are there of degree 7? Determine number of Boolean functions of degree $n$.} 
+\end{example}
+
+\begin{example}
+    \textit{Present the given Boolean function as a table.}
+    $$F:B_2 \to B $$
+    $$F(x,y)= x \bar{y}$$
+\end{example}
+\begin{example}
+    \textit{Find the values of the Boolean function as a table.} $$F:B_3 \to B$$ $$F(x,y,z)=xy+\bar{z}$$
+\end{example}
+
+\begin{example}
+    \textit{Find the values of the Boolean function as a table.} $$F:B_3 \to B$$ $$F(x,y,z)=x \bar{y}+\bar{x}\bar{z}$$ 
+\end{example}
+
+\begin{example}
+    \textit{The function $f(x,y,z)=xy+\bar{z}$ can be represented by distinguish the vertices that have $1$ output.}
+
+\textbf{Solution}
+$$$$
+  \begin{tikzpicture}
+  \begin{tikzpicture} [node distance={23mm}, thick, main/.style = {draw, circle}]
+        \node[main][red] (0) {$000$}; 
+        \node[main][gray] (1) [right of=0] {$001$};
+        \node[main][red] (4) [above of=0] {$100$};
+        \node[main][gray] (5) [right of=4] {$101$}; 
+        \node[main][red] (2) [above right of=0] {$010$}; 
+        \node[main][red] (6) [above of=2] {$110$};
+         \node[main][red] (7) [right of=6] {$111$}; 
+         \node[main][gray] (3) [above right of=1] {$011$};     
+        
+        \draw (0) -- (1);
+        \draw (0) -- (2);
+        \draw (2) -- (3);
+        \draw (2) -- (6);
+        \draw (4) -- (6);
+        \draw (0) -- (4);
+        \draw (1) -- (3);
+        \draw (3) -- (7);
+        \draw (5) -- (7);
+        \draw (5) -- (1);
+        \draw (4) -- (5);
+        \draw (6) -- (7);
+                
+        \end{tikzpicture}
+\end{tikzpicture} 
+\end{example}
+
+\begin{example}
+    \textit{Use 3-cube $Q_3$ to represent each of the Boolean functions.}
+    \begin{enumerate}
+        \item $f(x,y,z)=\bar{(x+y+z)}$
+        \item $f(x,y,z)= \bar{x} \cdot \bar{y} \cdot \bar{z} $
+        \item $f(x,y,z)= x \bar{y} z + \bar{y}z$
+        \item $f(x,y,z)= x(yz+ \bar{y} \bar{z} )$
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    \textit{Use 3-cube $Q_3$ to represent each of the Boolean functions.}
+    \begin{enumerate}
+        \item $f(x,y,z)=x(y+z)$
+        \item $f(x,y,z)= xy +xz $
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    \textit{Use 2-cube $Q_2$ to represent the functions and get the equivalence  $x+xy=x$.}
+\end{example}
+
+\begin{example}
+    \textit{Use 2-cube $Q_2$ to represent the functions and get the equivalence  $x(x+y)=x$.}
+\end{example}
+
+\begin{example}
+    \textit{. Show that $F (x, y, z) = xy + xz + yz $ has the value $1$ if
+and only if at least two of the variables $x$, $y$, and $z$ have
+the value 1.}
+\end{example}
+
+\textbf{Create a new Function}
+
+Let $F$ and $G$ be Boolean functions of degree $n$. The
+Boolean sum $F + G$ and the Boolean product $F G$ are defined by
+$$(F+G)(x_1,x_2, \cdots, x_n)= F(x_1,x_2, \cdots, x_n)+ G(x_1,x_2, \cdots, x_n) $$
+$$(FG)(x_1,x_2, \cdots, x_n)= F(x_1,x_2, \cdots, x_n) G(x_1,x_2, \cdots, x_n) $$
+\begin{example}
+    \textit{For the given functions write $F+ G$ and $F G$ functions.}
+    $$F(x_1,x_2,x_3)= (x_1+x_2)\bar{x_3}$$
+    $$G(x_1,x_2,x_3) = \bar{x_1}+x_2 \bar{x_3}$$
+\end{example}
+
+\begin{example}
+    A Boolean function $F$ is called \textbf{self-dual} if and only if
+    $$ F(x_1,\cdots,x_n) = \overline{F(\bar{x_1},\cdots ,\bar{x_n})}.$$
+    Which of these functions are self-dual?
+    \begin{enumerate}
+        \item $F(x,y)= x +y$
+        \item $F(x,y)= xy + \bar{x} \bar{y}$
+        \item $F(x,y)= xy + \bar{x} {y}$
+        \item $F(x,y,z)=\bar{x}\bar{y}z+ \bar{x}y\bar{z}$
+        \item $F(x,y,z)=xyz+ x \bar{y} z+ x \bar{y} \bar{z}$
+        \item $F(x,y,z)=xyz+ x \bar{y} z+ x \bar{y} \bar{z}$
+        \item $F(x,y,z)=\bar{x} \bar{y} \bar{z} + \bar{x} y \bar{z}+ x y \bar{z}+\bar{x} y z$
+    \end{enumerate}
+\end{example}
+\begin{example}
+    \textit{The Boolean operator $\bigoplus$, called the "\textbf{XOR}" operator, is defined by }
+    $$ 1 \bigoplus 1 = 0, 1 \bigoplus 0 = 1, 0 \bigoplus 1 = 1,  0 \bigoplus 0 = 0$$
+    \textit{Also, we can see that $\bigoplus$ is the sum in mod 2 system. Simplify these expressions:}
+    \begin{enumerate}
+        \item $x \bigoplus 0$
+        \item $x \bigoplus 1$
+        \item $x \bigoplus x$
+        \item $x \bigoplus \bar{x}$
+    \end{enumerate}
+    \textit{Show that these identities hold.}
+    \begin{enumerate}
+        \item $x \bigoplus y=(x+y)(\overline{xy})$
+        \item $x \bigoplus y=(x\bar{y})+(\bar{x}y)$
+    \end{enumerate}
+\end{example}
+
+
+\section{ Functional Completeness}
+Because every Boolean function can be represented using $ \{\cdot,+,- \} $  operators we say that the set $ \{\cdot,+,- \} $ is 
+\textbf{functionally complete}. 
+Can we find a smaller set of functionally complete operators? 
+Since by De Morgan's law we can represent sum as a product $x+y=\overline{\bar{x} \bar{y}}$ the set $\{\cdot ,- \}$ is functionally complete and similarly, product can be present as sum by De Morgan's law $xy = \overline{\bar{x} + \bar{y}} $, so the set $\{ + ,- \}$ is also functionally complete.  We have found sets containing two operators that are functionally complete. Can we find a smaller set of functionally complete operators, a set containing just one operator? Such sets exist.
+
+Define $|$ or "\textbf{NAND}" operator as below:
+$$1|0=0|1=0|0=1, 1|1=0$$
+
+The set $\{ | \}$ is functionally complete, because 
+$$\bar{x} = x | x$$
+$$x \cdot  y = (x |y) | (x | y)$$
+
+Also, define $\downarrow$ or "\textbf{NOR}" operator as below:
+$$1 \downarrow 0=0 \downarrow 1=1 \downarrow 1=0, 0 \downarrow 0=1$$
+
+The set $\{ \downarrow \}$ is also functionally complete, because
+$$\bar{x} = x  \downarrow x$$
+$$x \cdot  y = (x \downarrow x) \downarrow (y \downarrow y)$$
+
+\begin{example}
+    \textit{Show that}
+    \begin{enumerate}
+        \item $\bar{x} = x | x$
+        \item $x \cdot  y = (x |y) | (x | y)$
+        \item $x +  y = (x |x) | (y | y)$
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    \textit{Show that}
+    \begin{enumerate}
+        \item $\bar{x} = x  \downarrow x$
+        \item $x \cdot  y = (x \downarrow x) \downarrow (y \downarrow y)$
+        \item $x +  y = (x \downarrow y) \downarrow (x \downarrow y)$
+    \end{enumerate}
+\end{example}
+
+
+\section{Canonical and Standard Forms}
+
+\textbf{Canonical Form} 
+\\ In Boolean algebra, Boolean function can be expressed as \textit{Canonical Disjunctive Normal Form} known as \textbf{minterm} and some are expressed as \textit{Canonical Conjunctive Normal Form} known as \textbf{maxterm}. 
+In minterm, we look for the functions where the output results in “1” while in maxterm we look for function where the output results in “0”. 
+
+\begin{itemize}
+    \item We perform Sum of minterm also known as Sum of products (SOP) . 
+   
+   For example $xy+xz+yz$ or $\bar x y + yz + x \bar z $ are SOP expressions.
+    \item We perform Product of maxterm also known as Product of sum (POS). 
+  
+   For example $(x+y+z)(x+\bar y+ \bar z)$ or $(\bar x + \bar y + z)(x +y+\bar z)$ are POS expressions.
+    
+   However, Boolean function like $(xy+yz)(\bar x \bar y +x \bar z)$ is neither a sum of products form nor a product of sums form.
+\end{itemize}
+
+\textit{Boolean functions expressed as a sum of minterms or product of maxterms are said to be in canonical form.}
+\\\textbf{Standard Form} \\A Boolean variable can be expressed in either true form or complemented form. In standard form Boolean function will contain all the variables in either true form or complemented form while in canonical number of variables depends on the output of SOP or POS. 
+
+A Boolean function can be expressed algebraically from a given truth table by forming a : 
+\begin{itemize}
+\item minterm for each combination of the variables that produces a 1 in the function and then taking the OR of all those terms.
+\item maxterm for each combination of the variables that produces a 0 in the function and then taking the AND of all those terms. (see Fig1)
+\end{itemize}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.95\linewidth]{true_table.jpg}
+\caption{\label{fig:true table}Truth table representing minterm and maxterm.}
+\end{figure}
+
+\begin{example}
+    \textit{Show that if the number of variables is $n$, then the possible number of minterms is $2^n$.
+    Determine that in how many combinations of $n$ input the value of minterm is $1$ and in how many combinations of $n$ input the value of minterm is $0$.}
+\end{example}
+\newpage
+\subsection{\textbf{Sum-of-Products expansion or the Disjunctive Normal}
+ Form of the Boolean function}
+The sum of minterms that
+ represents the function is called the sum-of-products expansion or the disjunctive normal
+ form of the Boolean function.
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \begin{example}
+     \textit{Find the SOP standard expansion for the function}
+     $$f(x,y)= x+y$$
+ \textbf{Solution} $$f(x,y)= x+y= x \cdot 1 + y \cdot 1 = x (y + \bar y) + y (x + \bar x)= xy +x \bar y + xy + \bar x y $$
+ $$= xy + x \bar y + \bar x y.$$
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \begin{example}
+     \textit{Find the SOP standard  expansion for the function}
+     $$f(x,y,z)= (x+y) \bar z$$
+ \textbf{Solution} $$f(x,y,z)= (x+y) \bar z= x \bar z + y \bar z = x(y+ \bar y) \bar z +(x+ \bar x) y \bar z$$
+ $$= xy \bar z + x \bar y \bar z + xy \bar z + \bar x \bar y \bar z= xy \bar z + x \bar y \bar z +  \bar x \bar y \bar z.$$
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{example}
+     \textit{Find the SOP standard expansion for the function}
+     $$f(x,y,z)= x+yz$$
+ \textbf{Solution} $$f(x,y)= x+yz= x \cdot 1 \cdot 1 + 1 \cdot yz = x (y + \bar y)(z + \bar z) +  (x + \bar x)yz $$
+ $$=  (xy + x \bar y)(z + \bar z) + xyz+ \bar x yz= xyz + xy \bar z + x \bar y z + x \bar y \bar z + xyz+ \bar x yz  $$ 
+ $$= xyz + xy \bar z + x \bar y z +  x \bar y \bar z  + \bar x yz. $$
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{example}
+     \textit{Find the SOP expansion for the function}
+     $$f(x,y,z)=\sum  (1,3,6)= m_1+ m_3+ m_6$$
+\textbf{Solution} Each minterm is obtained by an AND operation.
+ $m_1= 001= \bar x \bar  y  z $ and $m_3 = 011= \bar x  y z $ and $m_6= 110=  x  y  \bar z $.
+ $$f(x,y,z)=\sum  (1,3,6)= m_1 +m_3+ m_6= \bar x \bar  y  z + \bar x  y z+  x  y  \bar z $$
+ \end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{example}
+     \textit{Represent the given Boolean function as the sum of the decimal codes.Use 3-cube $Q_3$ to represent the Boolean function.}$$f(x,y,z)= \bar x yz + x \bar y z + xy \bar z $$
+ \textbf{Solution} The expression $\bar x yz$ representation as a binary code is $011$ that is $3$ in decimal code. Next terms are $101, 110$ or in decimal codes are $5,6$.
+ $$f(x,y,z)= \bar x yz + x \bar y z + xy \bar z = m_3+m_5+m_6=\sum m(3,5,6)$$
+
+\centering
+ \begin{tikzpicture}
+  \begin{tikzpicture} [node distance={23mm}, thick, main/.style = {draw, circle}]
+        \node[main][gray] (0) {$000$}; 
+        \node[main][gray] (1) [right of=0] {$001$};
+        \node[main][gray] (4) [above of=0] {$100$};
+        \node[main][red] (5) [right of=4] {$101$}; 
+        \node[main][gray] (2) [above right of=0] {$010$}; 
+        \node[main][red] (6) [above of=2] {$110$};
+         \node[main][gray] (7) [right of=6] {$111$}; 
+         \node[main][red] (3) [above right of=1] {$011$};     
+        
+        \draw (0) -- (1);
+        \draw (0) -- (2);
+        \draw (2) -- (3);
+        \draw (2) -- (6);
+        \draw (4) -- (6);
+        \draw (0) -- (4);
+        \draw (1) -- (3);
+        \draw (3) -- (7);
+        \draw (5) -- (7);
+        \draw (5) -- (1);
+        \draw (4) -- (5);
+        \draw (6) -- (7);
+                
+        \end{tikzpicture}
+\end{tikzpicture} 
+
+ \end{example}
+
+
+\subsection{\textbf{ Product-of-Sums or the  Conjunctive Normal
+ form of the function.}}
+ 
+ If the number of variables is $n$, then the possible number of maxterms is $2^n$. The main property of a maxterm is that it posssess the value of $0$ for only one combination of $n$ input variables and the rest of the $2^n-1$ combinations have the logic value of $1$. 
+ \begin{example}
+     \textit{Find the POS expansion for the function}
+     $$f(x,y,z)=\Pi (0,2,5) = M_0 M_2 M_5$$
+ \textbf{Solution} Each maxterm is obtained by an OR operation.
+ $M_0= 000= x+ y+ z $ and $M_2 = 010= x \bar y +z $ and $M_5= 101= \bar x + y + \bar z $.
+ 
+ $$f(x,y,z)=\Pi (0,2,5) = M_0 M_2 M_5=(x+ y+ z )(x + \bar y +z)(\bar x + y + \bar z). $$
+\end{example}
+
+\begin{example}
+    \textit{Obtain the standard canonical POS form of the function. Write as product of maxterms.}
+    $$f(x,y,z)= (x+ \bar y)(y+z)(x + \bar z)$$
+    \textbf{Solution} $f(x,y,z)= (x+ \bar y)(y+z)(x + \bar z)=(x+ \bar y+ 0)(0+y+z)(x +0+ \bar z)$
+    \begin{itemize}
+        \item $z$ is missing in the first term. Therefore $z \bar z$ is to be added with the first term 
+        \item $x$ is missing in the second term. Add $x \bar x$.
+        \item $y$ is missing in the third term. Add $y \bar y$.
+    \end{itemize}
+    $$f(x,y,z)= (x+ \bar y+ z \bar z)(x \bar x+y+z)(x +y \bar y+ \bar z)$$
+    Using the distributive property, $a+bc=(a+b)(a+c)$
+    $$f(x,y,z)= (x+ \bar y+ z )(x+ \bar y+  \bar z)(x +y+z)( \bar x+y+z)(x +y + \bar z)(x + \bar y+ \bar z)$$
+    Since $(x + \bar y+ \bar z)(x + \bar y+ \bar z)=x + \bar y+ \bar z $ we have 
+    $$f(x,y,z)= (x+ \bar y+ z )(x+ \bar y+  
+ \bar z)(x +y+z)( \bar x+y+z)(x +y + \bar z)$$
+$$f(x,y,z)= (x+ \bar y+ z )(x+ \bar y+  \bar z)(x +y+z)( \bar x+y+z)(x +y + \bar z)= M_2 M_3 M_0 M_4 M_1 =\Pi (0,1,2,3,4).$$
+\end{example}
+
+\begin{example}
+\textit{Obtain the standard canonical POS form of the function. Write as product of maxterms.}
+$$f(x,y,z)= x+ \bar y z$$
+\textbf{Solution} The function is given at sum of product (SOP) form. First, the function needs to be changed to POS form by using distribution law $a+bc=(a+b)(a+c)$
+$$f(x,y,z)= x+ \bar y z= (x+\bar y)(x+z)=(x+ \bar y + z \bar z )(x+ y \bar y +z)$$
+$$f(x,y,z)=(x+ \bar y + z)(x+ \bar y+\bar z )(x+ y +z)(x+\bar y +z)$$
+$$f(x,y,z)=(x+ \bar y + z)(x+ \bar y+\bar z )(x+ y +z)$$
+$$f(x,y,z)= M_2 M_3 M_0= \Pi (0,2,3)$$
+\end{example}
+
+\begin{example}
+    \textit{Here is given $Q_3$ representation of a Boolean function. Write the function as POS and SOP forms.}
+\begin{center}
+ \begin{tikzpicture}
+  \begin{tikzpicture} [node distance={23mm}, thick, main/.style = {draw, circle}]
+        \node[main][gray] (0) {$000$}; 
+        \node[main][gray] (1) [right of=0] {$001$};
+        \node[main][gray] (4) [above of=0] {$100$};
+        \node[main][red] (5) [right of=4] {$101$}; 
+        \node[main][red] (2) [above right of=0] {$010$}; 
+        \node[main][red] (6) [above of=2] {$110$};
+         \node[main][red] (7) [right of=6] {$111$}; 
+         \node[main][red] (3) [above right of=1] {$011$};        
+        \draw (0) -- (1);
+        \draw (0) -- (2);
+        \draw (2) -- (3);
+        \draw (2) -- (6);
+        \draw (4) -- (6);
+        \draw (0) -- (4);
+        \draw (1) -- (3);
+        \draw (3) -- (7);
+        \draw (5) -- (7);
+        \draw (5) -- (1);
+        \draw (4) -- (5);
+        \draw (6) -- (7);           
+        \end{tikzpicture}
+\end{tikzpicture}
+\end{center}
+\textbf{Solution} For SOP form $010=m_2, 011=m_3, 101=m_5 , 110=m_6, 111=m_7$
+$$f(x,y,z)=m_2+m_3+m_5+m_6+m_7= \sum (2,3,5,6,7)$$
+$$f(x,y,z)= \bar x y \bar z + \bar x y z + x \bar y z + xy \bar z+ xyz.$$
+
+For POS form, since in maxterm the output for an input such $010$ for $M_2=x+\bar{y}+z$ is $0$, we should select other vertices (gray vertices), $000=M_0, 001=M_1, 100=M_4$
+$$f(x,y,z)=M_0 \cdot M_1 \cdot M_4= \Pi (0,1,4)$$
+$$f(x,y,z)=  (x +y + z)(x+ y+ \bar  z)( \bar{x} + y+ z).$$
+\end{example}
+
+
+\begin{example}    
+\textit{Write given functions as POS and SOP forms.}
+
+  \begin{enumerate}  
+        \item $f(x,y,z)=\bar x + \bar y z$
+        \item $f(x,y,z)=\bar x + \bar y  +\bar z$
+        \item $f(x,y,z)=\overline { x \bar y  +\bar z}$
+        \item $f(x,y,z)=\overline { \bar x \bar y z + x \bar z}$
+    \end{enumerate}
+\end{example}
+
+\subsection{\textbf{Simplifying the SOP form Karnaugh map method}}
+ To reduce the number of terms in a Boolean expression representing a circuit, it is necessary
+ to find terms to combine. There is a graphical method, called a \textbf{Karnaugh map} or \textbf{K-map}, for finding terms to combine for Boolean functions involving a relatively small number of variables. 
+  K-maps give us a visual method for simplifying
+ sum-of-products expansions.
+ 
+ We will first
+ illustrate how K-maps are used to simplify expansions of Boolean functions in two variables. There are four possible minterms in the sum-of-products expansion of a Boolean function
+ in the two variables $x$ and $y$. A K-map for a Boolean function in these two variables consists of four cells, where a $1$ is placed in the cell representing a minterm if this minterm is present in the expansion. Cells are said to be adjacent if the minterms that they represent differ in exactly one literal. For instance, the cell representing $\bar x  y $ is \textbf{adjacent} to the cells representing $\bar x \bar y$ and $x y$. 
+ 
+%\vspace{12pt}
+ \begin{center}
+ \begin{tabular}{c|c|c}     \hline
+\rowcolor{yellow} \multicolumn{3}{c}{K-map in two variables} \\ \hline
+    \rowcolor{black!10} & $y$ & $\bar y$ \\ \hline
+   \cellcolor{black!10}$x$      &  $xy$ & $x \bar y $ \\ \hline
+   \cellcolor{black!10}$\bar x$ & $\bar x y$ & $\bar x \bar y $ \\ \hline
+\end{tabular}
+\end{center}
+\begin{example}
+    \textit{Find the K-maps for $xy + \bar x y$.}
+    \\\textbf{Solution}  We include a $1$ in a cell when the minterm represented by this cell is present in the sum-of-products expansion. 
+\begin{center}
+    \begin{tabular}{c|c|c}  \hline
+\rowcolor{yellow}    \multicolumn{3}{c}{K-map for $xy + \bar x y$} \\ \hline
+   \rowcolor{black!10}  & $y$ & $\bar y$ \\ \hline
+  \cellcolor{black!10} $x$      &  $1$ &  \\ \hline
+   \cellcolor{black!10}$\bar x$ & $1$ &  \\ \hline
+\end{tabular}
+\end{center} 
+\end{example}
+
+\begin{example}
+    \textit{Find the K-maps for $xy + \bar x \bar y$.} 
+   \\ \textbf{Solution}  We include a $1$ in a cell when the minterm represented by this cell is present in the sum-of-products expansion. 
+\begin{center}
+    \begin{tabular}{c|c|c}  \hline
+ \rowcolor{yellow}   \multicolumn{3}{c}{K-map for $xy + \bar x \bar y$} \\ \hline
+    \rowcolor{black!10} & $y$ & $\bar y$ \\ \hline
+   \cellcolor{black!10} $x$      &  $1$ &  \\ \hline
+  \cellcolor{black!10}  $\bar x$ &  & $1$ \\ \hline
+\end{tabular}
+\end{center} 
+\end{example}
+
+A K-map in three variables is a rectangle divided into eight cells. The cells represent the eight possible minterms in three variables. Two cells are said to be adjacent if the minterms that they represent differ in exactly one literal.
+
+\begin{center}
+    \begin{tabular}{c|c|c|c|c}  \hline
+\rowcolor{yellow}\multicolumn{5}{c}{K-map in three variables} \\ \hline
+    \rowcolor{black!10}& $yz$ & $y \bar z$ & $\bar y \bar z$ & $\bar y z$\\ \hline
+    \cellcolor{black!10}$x$& $xyz$ & $xy \bar z$ & $x\bar y \bar z$ & $x\bar y z$\\ \hline
+   \cellcolor{black!10} $\bar x$& $\bar x yz$ & $\bar x y \bar z$ & $\bar x \bar y \bar z$ & $\bar x \bar y z$\\ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+    \begin{tabular}{c|c|c|c|c} \hline
+\rowcolor{yellow}\multicolumn{5}{c}{K-map for $x \bar y \bar z+ \bar{x} \bar y \bar z =\bar y \bar z $} \\ \hline
+        & $yz$  & $y \bar z$  & \cellcolor{blue!20} $\bar y \bar z$  & $\bar y z$\\ \hline
+    $x$ &       &             & \cellcolor{yellow!50}$1$ &  \\ \hline
+$\bar x$&  &  & \cellcolor{yellow!50}$1$ & \\ \hline
+\end{tabular}
+\end{center}
+
+ \begin{center}
+    \begin{tabular}{c|c|c|c|c} \hline
+\rowcolor{yellow}\multicolumn{5}{c}{K-map for $\bar x y z+ \bar x y \bar z+ \bar x \bar y \bar z + \bar x \bar y z  =\bar x $} \\ \hline
+        & $yz$  & $y \bar z$  & $\bar y \bar z$  & $\bar y z$\\ \hline
+    $x$ &       &             &  &  \\ \hline
+\cellcolor{blue!20}$\bar x$ & \cellcolor{yellow!50}$1$ & \cellcolor{yellow!50}$1$ & \cellcolor{yellow!50}$1$ & \cellcolor{yellow!50}$1$ \\ \hline
+\end{tabular}
+\end{center}
+
+\begin{example}
+    \textit{ Use K-maps to minimize these sum-of-products expansions.}
+    \begin{enumerate}
+        \item $xy \bar z+x \bar y \bar z+\bar x y z+\bar x \bar y \bar z$
+        \item $xy \bar z + x \bar y \bar z + \bar x \bar y z + \bar x \bar y \bar z $
+        \item $xyz+ \bar x y z + xy \bar z + \bar x y \bar z$
+    \end{enumerate}
+    \textbf{Solution}
+     \begin{enumerate}
+     \item 
+\begin{tabular}{c|c|c|c|c} \hline
+\rowcolor{yellow}\multicolumn{5}{c}{K-map for $xy \bar z+x \bar y \bar z+\bar x y z+\bar x \bar y \bar z$} \\ \hline
+& $yz$  & $y \bar z$  & $  \bar y \bar z$  & $\bar y z$\\ \hline
+$x$ &       &      \cellcolor{yellow!50}$1$       & \cellcolor{yellow!50}$1$ &   \\ \hline
+$\bar x$ & \cellcolor{yellow!50}$1$ & & \cellcolor{yellow!50}$1$ &  \\ \hline
+\end{tabular}
+
+$ xy \bar z+x \bar y \bar z+\bar x y z+\bar x \bar y \bar z= x \bar z + \bar y \bar z + \bar x yz.$
+\item 
+\begin{tabular}{c|c|c|c|c} \hline
+\rowcolor{yellow}\multicolumn{5}{c}{K-map for $xy \bar z + x \bar y \bar z + \bar x \bar y z + \bar x \bar y \bar z$} \\ \hline
+& $yz$  & $y \bar z$  & $\bar y \bar z$  & $\bar y z$\\ \hline
+$x$ &       &      \cellcolor{yellow!50}$1$       & \cellcolor{yellow!50}$1$ &   \\ \hline
+$\bar x$ &  &    & \cellcolor{yellow!50}$1$ & \cellcolor{yellow!50}$1$  \\ \hline
+\end{tabular}
+
+$ xy \bar z + x \bar y \bar z + \bar x \bar y z + \bar x \bar y \bar z= x \bar z + \bar x \bar y .$
+
+\item 
+\begin{tabular}{c|c|c|c|c} \hline
+\rowcolor{yellow}\multicolumn{5}{c}{K-map for $xyz+ \bar x y z + xy \bar z + \bar x y \bar z$} \\ \hline
+& $yz$  & $y \bar z$  & $\bar y \bar z$  & $\bar y z$\\ \hline
+$x$ &    \cellcolor{yellow!50}$1$    &      \cellcolor{yellow!50} $1$      &  &   \\ \hline
+$\bar x$ &  \cellcolor{yellow!50}$1$  &   \cellcolor{yellow!50} $1$ &  &  \\ \hline
+\end{tabular}
+
+$ xyz+ \bar x y z + xy \bar z + \bar x y \bar z=y.$
+
+\end{enumerate}
+\end{example}
+%%%%%%%%%%%%%%%%% EXERCISE 
+\begin{example} \textit{ Use K-maps to minimize these sum-of-products expansions.}
+    \begin{enumerate}
+        \item $\bar x y z + \bar x \bar y z$
+        \item $xyz + xy \bar z + \bar x y z$
+        \item $xyz + x \bar y z $
+        \item $xy \bar z + x \bar y z + \bar x y \bar z $     
+    \end{enumerate}
+\end{example}
+     \newpage
+\subsection{\textbf{Simplifying the SOP form  Quine–McCluskey method}}
+There is a need for a procedure for simplifying sum-of-products
+ expansions that can be mechanized. The Quine–McCluskey method is such a procedure. It can be used for Boolean functions in any number of variables. 
+ 
+ Minterms that can be combined are those that differ in exactly one literal.  Hence, two terms  that can be combined differ by exactly one in the number of $1$s  in the bit strings that represent them.
+     When two minterms are combined into a product, this product contains two literals. A product in two literals is represented using a dash to denote the variable that does not occur. For example two strings $101$ and $001$ can be combined to one string, and in the next time of combining we will simplify strings that have one $-$, for example $-01$ and $-11$ will be combined to $--1$ string. By doing this procedure we get simplify form.
+\begin{example}
+    \textit{We will show how the Quine–McCluskey method can be used to find a minimal expansion equivalent to }
+    $$xyz + x \bar y z + \bar x yz + \bar x \bar y z + \bar x \bar y \bar z. $$
+    \\ \textbf{Solution}  We will represent the minterms in this expansion by bit strings.
+    $$xyz=111, x \bar y z =101 , \bar x yz =011 , \bar x \bar y z=001, \bar x \bar y \bar z=000  $$
+    \begin{center}
+\begin{tabular}{c|c|c|c|c|c} \hline
+\rowcolor{yellow}\multicolumn{6}{c}{Quine–McCluskey method } \\ \hline
+1 &$xyz$&    \cellcolor{red!50}111& \cellcolor{orange!50}(1,2) $1-1$  & \cellcolor{yellow!50}((1,2),(3,4)) $--1$ & \cellcolor{yellow!50}$--1$\\ \hline
+2& $x \bar y z$ &     \cellcolor{orange!50}$101$   &     \cellcolor{orange!50}(1,3) $-11$     & \cellcolor{yellow!50}((1,3),(2,4)) $--1$ & \cellcolor{yellow!10}$00-$   \\ \hline
+3& $\bar x y z$ &     \cellcolor{orange!50}$011$    &      \cellcolor{yellow!50}(2,4) $-01$     &  \cellcolor{yellow!10}(4,5) $00-$ &   \\ \hline
+4&$\bar x \bar y z$ &     \cellcolor{yellow!50}$001$    &      \cellcolor{yellow!50}(3,4) $0-1$      &  &    \\ \hline
+5&$\bar x \bar y \bar z$ &   \cellcolor{yellow!10} $000$    &     \cellcolor{yellow!10}(4,5) $00-$   &  &    \\ \hline
+\end{tabular} 
+\end{center}
+ So the function is equivalent to  $z+ \bar x \bar y $.
+\end{example}
+
+\begin{example}
+    \textit{Use the Quine–McCluskey method  to find a minimal for given function.}
+    $$wx\bar y\bar z + w\bar x y \bar z + w \bar x y z + w\bar x \bar y \bar z +\bar w x \bar y \bar z+ \bar w \bar x y \bar z + \bar w \bar x \bar y \bar z  $$
+     \\ \textbf{Solution}
+      \begin{center}
+\begin{tabular}{c|c|c|c|c} \hline
+\rowcolor{yellow}\multicolumn{5}{c}{Quine–McCluskey method } \\ \hline
+1 &$w \bar x yz$      &    \cellcolor{red!50}1011&\cellcolor{yellow!50} $(1,3)$ $101-$ & \cellcolor{yellow!50}  $(1,3)$ $101-$  \\ \hline
+2& $wx \bar y \bar z$ &     \cellcolor{yellow!50}$1100$   &\cellcolor{yellow!10}$(2,4)$ $1-00$   & \cellcolor{gray!10}  $((2,5),(4,7))$ $--00$    \\ \hline
+3& $w \bar x y \bar z$ &     \cellcolor{yellow!50}$1010$    & \cellcolor{yellow!10}$(2,5)$ $-100$   &  \cellcolor{gray!10}$((3,4),(6,7))$ $-0-0$    \\ \hline
+4&$w \bar x \bar y \bar z$ &     \cellcolor{yellow!10}$1000$    & \cellcolor{yellow!10}$(3,4)$ $10-0$   & $((2,4),(5,7))$ $--00$     \\ \hline
+5&$\bar w x \bar y \bar z$ &   \cellcolor{yellow!10} $0100$    &   \cellcolor{yellow!10}$(3,6)$ $-010$  & $((3,6),(4,7))$ $-0-0$      \\ \hline
+6&$\bar w \bar x y \bar z$ &   \cellcolor{yellow!10} $0010$    &  \cellcolor{gray!10}$(4,7)$ $-000$   &      \\ \hline
+7&$\bar w \bar x \bar y \bar z$ &   \cellcolor{gray!10} $0000$    & \cellcolor{gray!10} $(5,7)$ $0-00$   &      \\ \hline
+8& &       &  \cellcolor{gray!10}$(6,7)$ $00-0$   &      \\ \hline
+\end{tabular} 
+\end{center}
+So the function is equivalent to $w \bar x y + \bar y \bar z + \bar x \bar z$.
+    \end{example}
+\begin{example}
+    \textit{Use the Quine–McCluskey method  to find a minimal for given function.}
+    \begin{enumerate}
+        \item $xy \bar z + x \bar y z+ \bar x \bar y z$
+        \item $wxyz + \bar w \bar x y z + \bar w x \bar y \bar z $
+    \end{enumerate}
+\end{example}
+
+\newpage
+\section{Metric Properties in Boolean Algebra}
+Let $B_n= \{ \hat{x}= (x_1, x_2, \cdots , x_n) | x_i \in \{0,1\} , 1 \leq i \leq n  \}$, then every member $\hat{x}$ in $B_n$ is like a vector with length $n$ with $k$ ones and $n-k$ zeroes. The \textbf{number of ones} in $\hat{x}$ vector called \textbf{weight} of $\hat{x}=(x_1, x_2, \cdots , x_n)$ and defined by 
+\begin{equation}
+    \left \| \hat{x} \right \|=\sum_{i=1}^{n} x_i=x_1+x_2+\cdots +x_n.
+\end{equation}
+If $\left \| \hat{x} \right \|=k$, then we say $\hat{x}$ is in \textit{the k-th layer}. For $k=0,1,2, \cdots ,n$ layers are defined by $B^k_n$ set, this is the set of all vectors in $B_n$ with $k$ weight:
+\begin{equation}
+    B^k_n= \{ \hat{x} | \hat{x} \in B_n,  \left \| \hat{x} \right \|=k \}
+\end{equation}
+For example in $B_4$,
+$$B^0_4= \{ \hat{x} | \hat{x} \in B_4,  \left \| \hat{x} \right \|=0 \}=\{(0,0,0,0) \} $$
+ $$B^1_4= \{ \hat{x} | \hat{x} \in B_4,  \left \| \hat{x} \right \|=1 \}=\{ (1,0,0,0),(0,1,0,0),(0,0,1,0),(0,0,0,1) \}$$
+    $$B^2_4= \{ \hat{x} | \hat{x} \in B_4,  \left \| \hat{x} \right \|=2 \}=\{ (1,1,0,0),(1,0,1,0),(1,0,0,1),(0,1,1,0),(0,1,0,1),(0,0,1,1) \}.$$
+     $$B^3_4= \{ \hat{x} | \hat{x} \in B_4,  \left \| \hat{x} \right \|=3 \}=\{ (0,1,1,1),(1,0,1,1),(1,1,0,1),(1,1,1,0) \}$$
+      $$B^3_4= \{ \hat{x} | \hat{x} \in B_4,  \left \| \hat{x} \right \|=4 \}=\{ (1,1,1,1) \}$$
+\begin{example}
+    \textit{Write the layers of $B_5$.}
+\end{example}
+
+\begin{example}
+    \textit{Find the number of elements in every layer of $B_n$.}
+\end{example}
+
+\begin{example}
+    \textit{In $B_4$ write neighbor vertices to vertex $\hat{\alpha}=(0,1,0,1)$. Determine layers of neighbor vertices.}
+\end{example}
+
+\begin{example}
+    \textit{Explain that for every $\hat{\alpha} \in B^k_n$, where $k>0$, there are $k$ neighbors in $k-1$ layer and $n-k$ neighbors in $k+1$ layer.}
+\end{example}
+
+\begin{example}
+    \textit{Suppose,in $B_n$ there is a path from $\hat{\alpha}$ to $\hat{\beta}$ with length $l$. Explain that $|| \hat{\alpha} ||+ || \hat{\beta}||+l $ is an even number.}
+\end{example}
+
+\subsection{Hamming distance}
+\textbf{What is the Hamming distance?}
+\\The Hamming distance is a \textbf{metric} used in \textbf{information theory} to measure how much \textbf{two messages with the same length differ}.
+\\The Hamming distance indicates the \textbf{number of different digits/letters in a pair of messages}. Take the words "Hamming" and "Humming": what is the Hamming distance?
+
+Let's see. "H\textbf{a}mming" and "H\textbf{u}mming", there is one letter of difference, so the\textbf{ Hamming distance is 1}.
+Increase the Hamming distance to two or three: 
+\textit{farming, camping.  fasting, hosting, hammock or Hamburg}.
+\\\textbf{Where do we use the Hamming distance?}
+
+The Hamming distance is a fundamental concept in the field of \textbf{error detection and correction}. An error in a message is quantifiable by measuring the number of different bits between the corrupted message and the original one.
+\\\textbf{How to calculate the Hamming distance?}
+Take two binary messages with equal length, and write them down:
+$$a=1110000101$$
+$$b=1100001100$$
+   Now compare the messages "bitwise", and mark on one of them where the values of the bit in a given position differ between the messages, then count the number of bits you found: that is the Hamming distance.
+$$a=1 1 1 0 0 0 0 1 0 1 $$
+$$b=11\color{red}0\color{black}000\color{red}1\color{black}10\color{red}0$$
+$$Hamming(a,b) = \rho(a,b)=3.$$
+
+\newpage
+\textbf{Hamming distance in $B_n$} 
+\\Let $\hat{a},\hat{b} \in B_n$, for counting the difference between two vectors, we can define
+
+$$\rho(\hat{a},\hat{b}) = \sum_{i=1}^{n} |a_i - b_i|$$ or 
+$$\rho(\hat{a},\hat{b}) = \sum_{i=1}^{n} (a_i \bigoplus b_i)= ||\hat{a} \bigoplus \hat{b}||.$$
+
+\begin{example}
+    \textit{Prove that Hamming distance in $B_n$ is a metric measure, that is}
+    \begin{enumerate}
+        \item $\rho(\hat{a},\hat{b}) \geq 0$
+        \item $\rho(\hat{a},\hat{b})= \rho(\hat{b},\hat{a})$
+        \item $\rho(\hat{a},\hat{b}) = 0 \Leftrightarrow  \hat{a}=\hat{b}$
+        \item $\rho(\hat{a},\hat{b}) \leq \rho(\hat{a},\hat{c})+ \rho(\hat{c},\hat{b}) $
+    \end{enumerate}
+\end{example}
+\textbf{Ball and Sphere in $B_n$}
+\\For $r \geq 0$, sphere and ball with center $\hat{\alpha} \in B_n$ with radius $r$ is defined by 
+$$S(\hat{\alpha},r) = \{ \hat{\beta} | \hat{\beta} \in B_n , \rho( \hat{\alpha}, \hat{\beta}) \leq r \},$$
+$$C(\hat{\alpha},r) = \{ \hat{\beta} | \hat{\beta} \in B_n , \rho( \hat{\alpha}, \hat{\beta}) = r \}.$$
+
+\begin{example}
+    \textit{Determine members of the sets:}
+    \begin{enumerate}
+        \item $C((0,0,0,0),2)$
+        \item $C((0,0,0,1,0),3)$
+        \item $S((0,1,1,0),3)$
+        \item $S((1,1,1,0,0),2)$
+    \end{enumerate}
+    \end{example}
+    
+\begin{example}
+    \textit{Is there intersection between $C((0,0,0,0),3)$ and $C((1,1,1,1),2)$? }\textit{Compare this with circles intersection in Euclidean geometry.}
+\end{example}
+
+\begin{example}
+    \textit{Show that }
+    \begin{enumerate}
+        \item \textit{For every} $\hat{a} \in B_n$, $|C(\hat{a},r)|= C({n},{r}). $
+        \item \textit{For every} $\hat{a} \in B_n$, $|S(\hat{a},r)|= C({n},{0})+ C({n},{1})+ C({n},{2})+ \cdots + C({n},{r}). $
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    \textit{Is there, $X\in B^3_7$ and $Y \in B^4_7$, such that $\rho({X,Y})=7$?}
+\end{example}
+
+\begin{example}
+    Let $\hat{a}=1000010010 \in B_{10}$. Find $|C(\hat{a},r=3)|$.
+\end{example}
+
+\begin{example}
+    \textit{Write a path from $\hat{a}= 111110000 \in B^5_9$ to $\hat{b}=000111111 \in B^6_9$, and find $\rho(\hat{a}, \hat{b}).$ }
+\end{example}
+
+\begin{example}
+\textit{Write shortest and longest path from  7-th vertex in $B_5$ to 17-th vertex in $B_5$, and find Hamming distance between these vertices.}
+\end{example}
+
+\begin{example}
+    \textit{Suppose $f$ is a Boolean function on $B_{10}$, such that maps every item that contains 6 or less than ones to one and others to zero. Find the 25-th and 65-th rows output of function $f$.}
+\end{example}
+\begin{example}
+    \textit{Let }$\hat{a}, \hat{b} \in B_n$\textit{, such that} $\rho(\hat{a}, \hat{b})= R$.\textit{ Find the number of vertices} $\hat{c}$, \textit{that satisfy} $$\rho(\hat{a}, \hat{b})= \rho(\hat{a}, \hat{c})+\rho(\hat{c}, \hat{b}).$$
+\end{example}
+\begin{example}
+    \textit{We call function \textbf{sum} on} $B_n$ to $\{ 0,1,2, \cdots ,n \}$, \textit{the output is sum of the digits of the string in $B_n$, for example $sum(10101)=3$. Determine number of strings map to 2. }
+\end{example}
+
+\end{document}
